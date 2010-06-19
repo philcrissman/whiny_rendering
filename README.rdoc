@@ -1,0 +1,31 @@
+= WhinyRendering
+
+WhinyRendering is the result of a lot of conversations held around the office about how convenient it would be to have a list, on the page you are viewing in the browser, of the exact template (and partials!) that you are actually seeing rendered in the browser.
+
+This is a really early version. Feel free to send me feedback, pull requests, what-have-you.
+
+== Installing
+
+Assuming you have gemcutter installed (gem install gemcutter):
+
+  gem install whiny_rendering
+  
+== Usage
+
+In your layout (probably application.html.(erb|haml)):
+
+  <%= whiny_rendering %>
+
+If you use haml, well; you know what to do.
+
+You probably only want to see this in development mode, so you might rather:
+
+  <%= whiny_rendering if RAILS_ENV=="development" %>
+  
+... or something like that.
+
+Right now, this will put a div with the relevant information at whatever spot in your template you placed the call to whiny_rendering. It's completely unstyled, and there's no whiny_rendering.css included with the gem (yet!), but the div has the id of #whiny_rendering (hope you weren't using that for something already), so it is very easy to just add a few styles for this div to your default stylesheet.
+
+== Miscellany
+
+Author's homepage: http://philcrissman.com
