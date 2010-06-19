@@ -1,8 +1,10 @@
 = WhinyRendering
 
-WhinyRendering is the result of a lot of conversations held around the office about how convenient it would be to have a list, on the page you are viewing in the browser, of the exact template (and partials!) that you are actually seeing rendered in the browser.
+WhinyRendering is a gem for Rails which provides a method for ActionView that returns a div listing the current controller, action, template being rendered, and a list of all the partials being used in that view as well.
 
-This is a really early version. Feel free to send me feedback, pull requests, what-have-you.
+It's the result of a lot of conversations held around the office about how convenient it would be to have a list, on the page you are viewing in the browser, of the exact template (and partials!) that you are actually seeing rendered in the browser. The idea is to plug it in to a project that you may not be too familiar with, and to cut down on all that annoying searching through the controllers and/or views to figure out what is actually going on in the view.
+
+This is a really early version. Feel free to send me feedback, ideas, pull requests, what-have-you.
 
 == Installing
 
