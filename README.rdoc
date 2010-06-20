@@ -14,7 +14,7 @@ Assuming you have gemcutter installed (gem install gemcutter):
   
 Or, if you prefer plugins:
 
-  script/plugin install git@github.com:philcrissman/whiny_rendering.git
+  script/plugin install git://github.com/philcrissman/whiny_rendering.git
   
 (Haven't tested it as a plugin, feedback welcomed.)
   
