@@ -1,6 +1,6 @@
 module WhinyRendering
   
-  def whiny_rendering
+  def whiny_rendering(format=:div)
     unless @_memoized__pick_partial_template.nil?  
       partials = @_memoized__pick_partial_template.map do |p|
         p[1].instance_variable_get(:"@_memoized_path")
@@ -8,13 +8,23 @@ module WhinyRendering
     else
       partials = []
     end
-    div = <<-EOD
-      <div id='whiny_rendering'>
-        Controller <strong>#{ @controller.controller_name}</strong> and action <strong>#{ @controller.action_name }</strong> 
-        rendering template <strong>#{ @_first_render.instance_variable_get(:"@_memoized_path")}</strong>.
-        #{ "Rendering partials: <strong>" + partials.join(', ') + "</strong>" unless partials.empty? }
-      </div>
-    EOD
+    if :div == format
+       output = <<-EOD
+        <div id='whiny_rendering'>
+         Controller <strong>#{ @controller.controller_name}</strong> and action <strong>#{ @controller.action_name }</strong> 
+         rendering template <strong>#{ @_first_render.instance_variable_get(:"@_memoized_path")}</strong>.
+         #{ "Rendering partials: <strong>" + partials.join(', ') + "</strong>" unless partials.empty? }
+         </div>
+      EOD
+    elsif :comment == format
+       output = <<-EOD
+           <!--
+           Controller: #{ @controller.controller_name}
+           Action: #{ @controller.action_name}
+           Template: #{ @_first_render.instance_variable_get(:"@_memoized_path")}
+           #{ partials.empty? ? "-->" : "Partials: " + partials.join(', ') + "\n-->" }
+        EOD
+    end
   end
   
 end
