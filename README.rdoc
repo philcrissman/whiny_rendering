@@ -24,6 +24,10 @@ In your layout (probably application.html.(erb|haml)):
 
   <%= whiny_rendering %>
 
+You can also render it as an HTML comment rather than a div:
+
+  <%= whiny_rendering(:comment) %>
+
 If you use haml, well; you know what to do.
 
 You probably only want to see this in development mode, so you might rather:
