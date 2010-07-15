@@ -35,7 +35,7 @@ to toggle its display (using prototype):
 
 Or, if you use jQuery:
 
-  <%= whiny_rendering(:hidden_jquery %>
+  <%= whiny_rendering(:hidden_jquery) %>
 
 Using :hidden_prototype will also work, in the event that you'd like to be
 explicit.
