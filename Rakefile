@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('whiny_rendering', '0.1.0') do |g|
+Echoe.new('whiny_rendering', '0.1.1') do |g|
   g.description = "Add a helper that will be explicitly whiny about what templates and/or partials are being rendered."
   g.url = "http://github.com/philcrissman/whiny_rendering"
   g.author = "Phil Crissman"
