@@ -8,23 +8,62 @@ module WhinyRendering
     else
       partials = []
     end
-    if :div == format
-       output = <<-EOD
-        <div id='whiny_rendering'>
-         Controller <strong>#{ @controller.controller_name}</strong> and action <strong>#{ @controller.action_name }</strong> 
-         rendering template <strong>#{ @_first_render.instance_variable_get(:"@_memoized_path")}</strong>.
-         #{ "Rendering partials: <strong>" + partials.join(', ') + "</strong>" unless partials.empty? }
-         </div>
-      EOD
-    elsif :comment == format
-       output = <<-EOD
-           <!--
-           Controller: #{ @controller.controller_name}
-           Action: #{ @controller.action_name}
-           Template: #{ @_first_render.instance_variable_get(:"@_memoized_path")}
-           #{ partials.empty? ? "-->" : "Partials: " + partials.join(', ') + "\n-->" }
-        EOD
+
+    output = case format
+      when :div
+        build_div_output(partials)
+      when :hidden
+        build_hidden_prototype_output(partials)
+      when :hidden_prototype
+        build_hidden_prototype_output(partials)
+      when :hidden_jquery
+        build_hidden_jquery_output(partials)
+      when :comment
+        build_comment_output(partials)
     end
+  end
+
+  private
+  def build_div_output(partials, hidden = false)
+    div = <<-EOD
+    <div id='whiny_rendering' #{"style='display:none;'" if hidden} >
+      Controller <strong>#{ @controller.controller_name}</strong> and action <strong>#{ @controller.action_name }</strong>
+      rendering template <strong>#{ @_first_render.instance_variable_get(:"@_memoized_path") }</strong>.
+      #{ "Rendering partials: <strong>" + partials.join(', ') + "</strong>" unless partials.empty? }
+    </div>
+    EOD
+  end
+
+  def build_comment_output(partials)
+    comment = <<-EOD
+      <!--
+      Controller: #{ @controller.controller_name}
+      Action: #{ @controller.action_name}
+      Template: #{ @_first_render.instance_variable_get(:"@_memoized_path")}
+      #{ partials.empty? ? "-->" : "Partials: " + partials.join(', ') + "\n-->" }
+    EOD
+  end
+
+  def build_hidden_jquery_output(partials)
+    output = "<a href='#' id='whiny_rendering_toggle' style='font-size:0.8em;'>Whiny Rendering</a>\n"
+    output << build_div_output(partials, true)
+    output << <<-EOD
+      <script type="text/javascript">
+        jQuery('#whiny_rendering_toggle').toggle(
+          function () {
+            jQuery('#whiny_rendering').show();
+          },
+          function () {
+            jQuery('#whiny_rendering').hide();
+          }
+        );
+      </script>
+    EOD
+  end
+  
+  def build_hidden_prototype_output(partials)
+     output = "<a href='javascript:$('whiny_rendering').toggle();' id='whiny_rendering_toggle' style='font-size:0.8em;'>Whiny Rendering</a>\n"
+     output << build_div_output(partials, true)
   end
   
 end

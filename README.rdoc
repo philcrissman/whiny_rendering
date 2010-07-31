@@ -1,6 +1,6 @@
 = WhinyRendering
 
-WhinyRendering is a gem for Rails which provides a method for ActionView that returns a div listing the current controller, action, template being rendered, and a list of all the partials being used in that view as well.
+WhinyRendering is a gem for Rails which provides a method for ActionView that displays information about the current controller, action, template being rendered, and a list of all the partials being used in that view as well.
 
 It's the result of a lot of conversations held around the office about how convenient it would be to have a list, on the page you are viewing in the browser, of the exact template (and partials!) that you are actually seeing rendered in the browser. The idea is to plug it in to a project that you may not be too familiar with, and to cut down on all that annoying searching through the controllers and/or views to figure out what is actually going on in the view.
 
@@ -23,6 +23,22 @@ Or, if you prefer plugins:
 In your layout (probably application.html.(erb|haml)):
 
   <%= whiny_rendering %>
+
+This outputs a div containing the rendering information.
+
+There are other formats available for use, however:
+
+You can hide the div, and provide a unobtrusive link that developers can click
+to toggle its display (using prototype):
+
+  <%= whiny_rendering(:hidden) %>
+
+Or, if you use jQuery:
+
+  <%= whiny_rendering(:hidden_jquery) %>
+
+Using :hidden_prototype will also work, in the event that you'd like to be
+explicit.
 
 You can also render it as an HTML comment rather than a div:
 
